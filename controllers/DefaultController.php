@@ -13,7 +13,16 @@ class DefaultController extends Controller
 {
     public function actionIndex()
     {
-        return $this->render('index');
+        $params = [
+           'texts' => $this->texts
+        ];
+        return $this->render('index', $params);
     }
 
+    protected function getTexts()
+    {
+        return $this->module->runAction('text');
+    }
+    
+    
 }
