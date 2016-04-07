@@ -7,6 +7,7 @@
 
 namespace digitalmonk\modules\seo\controllers;
 
+use yii\base\Exception;
 use yii\web\Controller;
 
 class DefaultController extends Controller
@@ -21,7 +22,13 @@ class DefaultController extends Controller
 
     protected function getTexts()
     {
-        return $this->module->runAction('text');
+        try{
+            return $this->module->runAction('text');
+        } catch (Exception $e){
+            if($e->getName() === 'Database Exception'){
+                return $this->render('error', ['error' => $e]);
+            }
+        }
     }
     
     

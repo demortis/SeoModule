@@ -5,7 +5,6 @@
  * @time: 9:47
  */
  \digitalmonk\modules\seo\assets\SeoAssets::register($this);
-echo \digitalmonk\modules\seo\widgets\SeoWidget\SeoWidget::widget(['textOnly' => true]);
 ?>
 <div class="row">
     <?=\yii\widgets\Breadcrumbs::widget([

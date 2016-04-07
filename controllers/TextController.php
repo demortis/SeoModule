@@ -50,7 +50,6 @@ class TextController extends Controller
     public function actionUpdate($url, $position)
     {
         $model = SeoText::findOne(['url' => $url, 'position' => $position]);
-//        var_dump($model);die;
         if(!empty(\Yii::$app->request->post()) && $model !== null)
         {
             if(\Yii::$app->request->post('template-var') !== null){
