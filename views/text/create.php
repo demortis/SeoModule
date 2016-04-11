@@ -48,14 +48,17 @@
                 <?=$form->field($model, 'origin_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\projects\models\Origin::find()->all(), 'id', 'url'), ['prompt' => '-'])?>
             </div>
         <?php endif; ?>
-        <div class="col-md-<?=$model->hasAttribute('origin_id') ? 3 : 6?>">
+        <div class="col-md-<?=$model->hasAttribute('origin_id') ? 2 : 6?>">
             <?=$form->field($model, 'url')->textInput()?>
         </div>
         <div class="col-md-2">
             <?=$form->field($model, 'position')->textInput()?>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-2">
             <?=$form->field($model, 'type')->dropDownList(['Статья'], ['disabled' => true])->label('Тип текста')?>
+        </div>
+        <div class="col-md-2">
+            <?=$form->field($model, 'inheritable')->dropDownList(['Нет', 'Да'])?>
         </div>
     </div>
     <div class="row">

@@ -20,6 +20,7 @@ class m160407_125659_seo_module extends Migration
             'template_param_names' => Schema::TYPE_STRING.'(510)',
             'template_param_values' => Schema::TYPE_STRING.'(510)',
             'params_from_url' => Schema::TYPE_BOOLEAN,
+            'inheritable' => Schema::TYPE_BOOLEAN.' NOT NULL DEFAULT 0',
             'status' => Schema::TYPE_BOOLEAN.' NOT NULL DEFAULT 0',
             'created_at' => Schema::TYPE_INTEGER.'(11)',
             'updated_at' => Schema::TYPE_INTEGER.'(11)',

@@ -23,6 +23,7 @@ use yii\helpers\Json;
  * @property string $template_param_names
  * @property string $template_param_values
  * @property integer $params_from_url
+ * @property integer $inheritable
  *
  * @property SeoTextTemplate $template
  */
@@ -54,8 +55,8 @@ class SeoText extends \yii\db\ActiveRecord
     public function rules()
     {
         $rules = [
-            [['url', 'position'], 'required', 'message' => 'Поле «{attribute}» обязательно к заполнению'],
-            [['position', 'template_id', 'params_from_url', 'status', 'type', 'created_at', 'updated_at'], 'integer', 'message' => 'Поле «{attribute}» может содержать только число'],
+            [['position'], 'required', 'message' => 'Поле «{attribute}» обязательно к заполнению'],
+            [['position', 'template_id', 'params_from_url', 'status', 'inheritable', 'type', 'created_at', 'updated_at'], 'integer', 'message' => 'Поле «{attribute}» может содержать только число'],
             [['text'], 'string'],
             [['text'], 'trim'],
             [['url'], 'string', 'max' => 255],
@@ -90,7 +91,8 @@ class SeoText extends \yii\db\ActiveRecord
             'params_from_url' => 'Брать переменные из URL',
             'status' => 'Статус',
             'type' => 'Тип текста',
-            'origin_id' => 'Проект'
+            'origin_id' => 'Проект',
+            'inheritable' => 'Наследуемый'
         ];
     }
 

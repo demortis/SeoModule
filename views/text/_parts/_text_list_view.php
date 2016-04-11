@@ -57,7 +57,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <?=\yii\bootstrap\Html::icon('globe')?> <?=\yii\helpers\Html::a($model->fullUrl, \yii\helpers\Url::toRoute('/'.$model->url), ['target' => '_blank'])?>
+                <?=\yii\bootstrap\Html::icon('globe')?> <?=\yii\helpers\Html::a($model->fullUrl, $model->fullUrl, ['target' => '_blank'])?>
             </div>
             <div class="col-md-2 col-md-push-4">
                 <?=\yii\helpers\Html::activeLabel($model, 'position')?> : <?=$model->position?>

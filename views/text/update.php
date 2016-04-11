@@ -55,8 +55,11 @@
             <div class="col-md-2">
                 <?=$form->field($model, 'position')->textInput()?>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-2">
                 <?=$form->field($model, 'type')->dropDownList(['Статья'], ['disabled' => true])->label('Тип текста')?>
+            </div>
+            <div class="col-md-2">
+                <?=$form->field($model, 'inheritable')->dropDownList(['Нет', 'Да'])?>
             </div>
         </div>
         <div class="row">
