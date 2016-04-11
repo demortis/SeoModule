@@ -7,7 +7,6 @@
 
 namespace digitalmonk\modules\seo\models;
 
-use app\digitalmonk\modules\seo\models\SeoTextTemplate;
 use app\modules\projects\models\Origin;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\HtmlPurifier;
