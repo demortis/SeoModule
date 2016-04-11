@@ -8,7 +8,7 @@
 namespace digitalmonk\modules\seo\controllers;
 
 
-use app\digitalmonk\modules\seo\models\SeoTextTemplate;
+use digitalmonk\modules\seo\models\SeoTextTemplate;
 use digitalmonk\modules\seo\models\SeoText;
 use yii\helpers\Json;
 use yii\web\Controller;
