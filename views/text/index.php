@@ -19,6 +19,7 @@
     <?= \yii\widgets\ListView::widget([
         'dataProvider' => $dataProvider,
         'summary' => 'Всего текстов: <strong>{totalCount}</strong>. Показано с <strong>{begin}</strong> по <strong>{end}</strong>.',
+        'emptyText' => 'Вы еще не создали ни одной статьи',
         'itemView' => function ($model, $key, $index, $widget) {
             return $this->render('_parts/_text_list_view', ['model' => $model]);
         },

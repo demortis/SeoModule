@@ -9,8 +9,11 @@
                     <div class="sm-text-list-item-control">
                         <?=\yii\helpers\Html::a(\yii\bootstrap\Html::icon('option-horizontal'))?>
                         <div class="sm-text-list-item-menu">
-                            <?=\yii\helpers\Html::a('Редактировать', \yii\helpers\Url::toRoute(['text/update', 'url' => $model->url, 'position' => $model->position]));?>
-                            <?=\yii\helpers\Html::a('Удалить', \yii\helpers\Url::toRoute(['text/delete', 'url' => $model->url, 'position' => $model->position]), [
+                            <?php
+                                $origin = $model->hasAttribute('origin_id') ? ['origin' => $model->origin_id] : [];
+                            ?>
+                            <?=\yii\helpers\Html::a('Редактировать', \yii\helpers\Url::toRoute(array_merge(['text/update', 'url' => $model->url, 'position' => $model->position], $origin)));?>
+                            <?=\yii\helpers\Html::a('Удалить', \yii\helpers\Url::toRoute(array_merge(['text/delete', 'url' => $model->url, 'position' => $model->position], $origin)), [
                                 'data' => [
                                     'action' => 'delete'
                                 ]
@@ -45,7 +48,7 @@
                 <div class="sm-text-list-item-template-param"><span></span><span>Переменные берутсья из URL</span></div>
             <?php elseif(count($model->templateParamsNamesValues)):?>
                 <?php foreach ($model->templateParamsNamesValues as $paramName => $paramValue):?>
-                    <div class="sm-text-list-item-template-param"><?=$paramName?></span><span><?=$paramValue?></span></div>
+                    <div class="sm-text-list-item-template-param"><span><?=$paramName?></span><span><?=$paramValue?></span></div>
                 <?php endforeach; ?>
             <?php else: ?>
                 <div class="sm-empty-text">Переменные отсутсвуют</div>
@@ -54,7 +57,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <?=\yii\bootstrap\Html::icon('globe')?> <?=\yii\helpers\Html::a(Yii::$app->request->hostInfo.'/'.$model->url, \yii\helpers\Url::toRoute('/'.$model->url), ['target' => '_blank'])?>
+                <?=\yii\bootstrap\Html::icon('globe')?> <?=\yii\helpers\Html::a($model->fullUrl, \yii\helpers\Url::toRoute('/'.$model->url), ['target' => '_blank'])?>
             </div>
             <div class="col-md-2 col-md-push-4">
                 <?=\yii\helpers\Html::activeLabel($model, 'position')?> : <?=$model->position?>

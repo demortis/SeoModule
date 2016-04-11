@@ -1,5 +1,5 @@
 <div class="error-message">
     При инициализации модуля возникла ошибка подключения к базе данных. Возможно Вы не установили миграции модуля.<br>
     Для того чтобы это сделать введите в Вашу консоль следующую строчку:<br>
-    <code>php yii migrate --migrationPath=vendor/digitalmonk/SeoModule/migrations</code>
+    <code>yii migrate --migrationPath=vendor/digitalmonk/SeoModule/migrations</code>
 </div>

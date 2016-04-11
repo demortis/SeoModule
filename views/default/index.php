@@ -6,6 +6,7 @@
  */
  \digitalmonk\modules\seo\assets\SeoAssets::register($this);
 ?>
+
 <div class="row">
     <?=\yii\widgets\Breadcrumbs::widget([
         'links' => ['SEO']

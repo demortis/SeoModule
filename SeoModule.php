@@ -16,5 +16,7 @@ class SeoModule extends Module
     public function init()
     {
         parent::init();
+
+        \Yii::configure($this, require($this->basePath.'/config/config.php'));
     }
 }

@@ -8,6 +8,7 @@
 namespace digitalmonk\modules\seo\models;
 
 use app\digitalmonk\modules\seo\models\SeoTextTemplate;
+use app\modules\projects\models\Origin;
 use yii\behaviors\TimestampBehavior;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Json;
@@ -53,16 +54,26 @@ class SeoText extends \yii\db\ActiveRecord
      */
     public function rules()
     {
-        return [
+        $rules = [
             [['url', 'position'], 'required', 'message' => 'Поле «{attribute}» обязательно к заполнению'],
-            [['position', 'template_id', 'params_from_url', 'status', 'type', 'created_at', 'updated_at'], 'integer'],
+            [['position', 'template_id', 'params_from_url', 'status', 'type', 'created_at', 'updated_at'], 'integer', 'message' => 'Поле «{attribute}» может содержать только число'],
             [['text'], 'string'],
             [['text'], 'trim'],
             [['url'], 'string', 'max' => 255],
             [['template_param_names', 'template_param_values'], 'string', 'max' => 510],
-            [['url', 'position'], 'unique', 'targetAttribute' => ['url', 'position'], 'message' => 'Данная прозиция уже занята'],
             [['template_id'], 'exist', 'skipOnError' => true, 'targetClass' => SeoTextTemplate::className(), 'targetAttribute' => ['template_id' => 'id']],
         ];
+
+        if(!$this->hasAttribute('origin_id'))
+            $rules[] = [['url', 'position'], 'unique', 'targetAttribute' => ['url', 'position'], 'message' => 'Данная прозиция уже занята'];
+
+        if($this->hasAttribute('origin_id')) {
+            $rules[] = [['origin_id'], 'integer', 'message' => 'Поле «{attribute}» может содержать только число'];
+            $rules[] = [['origin_id'], 'required', 'message' => 'Поле «{attribute}» обязательно к заполнению'];
+            $rules[] = [['url', 'position', 'origin_id'], 'unique', 'targetAttribute' => ['url', 'position', 'origin_id'], 'message' => 'Данная прозиция уже занята'];
+        }
+
+        return $rules;
     }
 
     /**
@@ -79,7 +90,8 @@ class SeoText extends \yii\db\ActiveRecord
             'template_param_values' => 'Template Param Values',
             'params_from_url' => 'Брать переменные из URL',
             'status' => 'Статус',
-            'type' => 'Тип текста'
+            'type' => 'Тип текста',
+            'origin_id' => 'Проект'
         ];
     }
 
@@ -109,6 +121,16 @@ class SeoText extends \yii\db\ActiveRecord
         }
 
         return $result;
+    }
+
+    public function getFullUrl()
+    {
+        return $this->hasAttribute('origin_id') && isset($this->origin) ? $this->origin->url.'/'.$this->url : \Yii::$app->request->hostInfo.'/'.$this->url;
+    }
+
+    public function getOrigin()
+    {
+        return $this->hasOne(Origin::className(), ['id' => 'origin_id']);
     }
 
     public function beforeSave($insert)

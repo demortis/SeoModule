@@ -39,18 +39,7 @@ class TextController extends Controller
     {
         $model = new SeoText();
 
-        if($model->load(\Yii::$app->request->post()) && $model->save())
-        {
-            $this->redirect(Url::toRoute('/seo'));
-        }
-
-        return $this->render('create', ['model' => $model]);
-    }
-
-    public function actionUpdate($url, $position)
-    {
-        $model = SeoText::findOne(['url' => $url, 'position' => $position]);
-        if(!empty(\Yii::$app->request->post()) && $model !== null)
+        if($model->load(\Yii::$app->request->post()) && $model->validate())
         {
             if(\Yii::$app->request->post('template-var') !== null){
                 $templateParamNames = [];
@@ -69,15 +58,69 @@ class TextController extends Controller
                 $model->template_param_values = '';
             }
 
+            $model->save(false);
+
+            $this->redirect(Url::toRoute('/seo'));
+        }
+
+        return $this->render('create', ['model' => $model]);
+    }
+
+    public function actionUpdate($url, $position, $origin = null)
+    {
+        $criteria = [
+            'url' => $url,
+            'position' => $position
+        ];
+
+        if($origin !== null)
+            $criteria = array_merge($criteria, ['origin_id' => (int)$origin]);
+
+        $model = SeoText::findOne($criteria);
+
+        if(!empty(\Yii::$app->request->post()) && $model !== null)
+        {
             if(\Yii::$app->request->isAjax){
                 $model->status = (int)!$model->status;
                 return $model->save();
             }
 
-            if($model->load(\Yii::$app->request->post()) && $model->save())
+            if($model->load(\Yii::$app->request->post()) && $model->validate())
             {
+                if(\Yii::$app->request->post('template-var') !== null){
+                    $templateParamNames = [];
+                    $templateParamValues = [];
+                    foreach (\Yii::$app->request->post('template-var') as $templateVar){
+                        if(empty($templateVar['name'])) continue;
+
+                        $templateParamNames[] = '/{'.$templateVar['name'].'}/';
+                        $templateParamValues[] = $templateVar['value'];
+                    }
+
+                    $model->template_param_names = Json::encode($templateParamNames);
+                    $model->template_param_values = Json::encode($templateParamValues);
+                } else {
+                    $model->template_param_names = '';
+                    $model->template_param_values = '';
+                }
+
+                $isNewUrl = $model->oldAttributes['url'] != $model->url || $model->oldAttributes['position'] != $model->position;
+
+                if($model->hasAttribute('origin_id'))
+                    $isNewUrl = $isNewUrl || $model->oldAttributes['origin_id'] != $model->origin_id;
+
+                $model->save(false);
+
                 if(!\Yii::$app->request->isAjax)
                     \Yii::$app->session->setFlash('success', 'Настройки текста успешно обновлены');
+
+                if($isNewUrl){
+                    $params = ['',  'url' => $model->url, 'position' => $model->position];
+                    if($model->hasAttribute('origin_id'))
+                        $params['origin'] = $model->origin_id;
+
+                    $this->redirect($params);
+                }
             }
         }
 
@@ -87,10 +130,18 @@ class TextController extends Controller
         }
     }
 
-    public function actionDelete($url, $position)
+    public function actionDelete($url, $position, $origin = null)
     {
         if($url !== null && $position !== null) {
-            $result = SeoText::deleteAll(['url' => $url, 'position' => $position]);
+            $criteria = [
+                'url' => $url,
+                'position' => $position
+            ];
+
+            if($origin !== null)
+                $criteria = array_merge($criteria, ['origin_id' => (int)$origin]);
+
+            $result = SeoText::deleteAll($criteria);
             if($result) {
                 \Yii::$app->session->setFlash('success', 'Текст успешно удален.');
                 $this->redirect(Url::toRoute('/seo'));

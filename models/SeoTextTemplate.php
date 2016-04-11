@@ -37,7 +37,7 @@ class SeoTextTemplate extends ActiveRecord
 
     public function getShortText()
     {
-        return StringHelper::truncate($this->text, 50, '...');
+        return StringHelper::truncate(strip_tags($this->text), 50, '...');
     }
 
     public function beforeSave($insert)

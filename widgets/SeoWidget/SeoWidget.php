@@ -9,6 +9,7 @@ namespace digitalmonk\modules\seo\widgets\SeoWidget;
 
 use digitalmonk\modules\seo\models\SeoText;
 use yii\base\Widget;
+use yii\db\Exception;
 use yii\helpers\Json;
 
 class SeoWidget extends Widget
@@ -33,7 +34,20 @@ class SeoWidget extends Widget
 
         $this->position = $this->position ?: self::$positionId++;
 
-        $this->model = SeoText::findOne(['position' => $this->position, 'url' => \Yii::$app->request->pathInfo, 'status' => SeoText::PUBLISHED]);
+        try {
+            $criteria = [
+                'position' => $this->position, 'url' => \Yii::$app->request->pathInfo, 'status' => SeoText::PUBLISHED
+            ];
+
+            if((new SeoText())->hasAttribute('origin_id'))
+                $criteria = array_merge($criteria, ['origin_id' => \Yii::$app->id]);
+
+            $this->model = SeoText::findOne($criteria);
+
+        } catch (Exception $e){
+            if($e->getName() === 'Database Exception')
+                echo $this->render('error');
+        }
 
         if($this->model !== null)
         {
@@ -44,12 +58,13 @@ class SeoWidget extends Widget
 
         $this->params = [
             'position' => $this->position,
-            'article' => $this->article
+            'article' => $this->article,
         ];
     }
 
     public function run()
     {
+
         if(!empty($this->article))
         {
             $render = $this->render('index', $this->params);

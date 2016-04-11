@@ -1,0 +1,21 @@
+{
+  "name" : "digitalmonk/yii2-module-seo",
+  "description" : "Seo module",
+  "keywords" : ["yii2", "soe", "module"],
+  "type" : "yii2-extension",
+  "license" : "BSD-3-Clause",
+  "authors" : [
+    {
+      "name" : "Eugene A.",
+      "email" : "compuniti@mail.ru"
+    }
+  ],
+  "require" : {
+    "yiisoft/yii2" : "*"
+  },
+  "autoload" : {
+    "psr-4" : {
+      "digitalmonk\\modules\\seo\\" : ""
+    }
+  }
+}

@@ -44,8 +44,12 @@
     'id' => 'seo-text-update'
 ])?>
 <div class="row">
-
-    <div class="col-md-6">
+    <?php if($model->hasAttribute('origin_id')): ?>
+        <div class="col-md-3">
+            <?=$form->field($model, 'origin_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\projects\models\Origin::find()->all(), 'id', 'url'), ['prompt' => '-'])?>
+        </div>
+    <?php endif; ?>
+    <div class="col-md-<?=$model->hasAttribute('origin_id') ? 3 : 6?>">
         <?=$form->field($model, 'url')->textInput()?>
     </div>
     <div class="col-md-2">

@@ -25,9 +25,8 @@ class DefaultController extends Controller
         try{
             return $this->module->runAction('text');
         } catch (Exception $e){
-            if($e->getName() === 'Database Exception'){
-                return $this->render('error', ['error' => $e]);
-            }
+            if($e->getName() === 'Database Exception')
+                return $this->renderPartial('error', ['error' => $e]);
         }
     }
     
