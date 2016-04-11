@@ -1,7 +1,7 @@
 {
   "name" : "digitalmonk/yii2-module-seo",
   "description" : "Seo module",
-  "keywords" : ["yii2", "soe", "module"],
+  "keywords" : ["yii2", "seo", "module"],
   "type" : "yii2-extension",
   "license" : "BSD-3-Clause",
   "authors" : [
@@ -11,7 +11,9 @@
     }
   ],
   "require" : {
-    "yiisoft/yii2" : "*"
+    "php" : ">=5.4.0",
+    "yiisoft/yii2" : "*",
+    "2amigos/yii2-ckeditor-widget" : "~1.0"
   },
   "autoload" : {
     "psr-4" : {
