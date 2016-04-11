@@ -73,7 +73,7 @@
             <?=\yii\helpers\Html::activeLabel($model, 'template_id')?>
             <div class="row template-control">
                 <div class="col-md-8">
-                    <?=$form->field($model, 'template_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\digitalmonk\modules\seo\models\SeoTextTemplate::find()->all(), 'id', 'shortText'), ['prompt' => '-'])->label(false)?>
+                    <?=$form->field($model, 'template_id')->dropDownList(\yii\helpers\ArrayHelper::map(\digitalmonk\modules\seo\models\SeoTextTemplate::find()->all(), 'id', 'shortText'), ['prompt' => '-'])->label(false)?>
                 </div>
                 <div class="col-md-2">
                     <div class="row">
