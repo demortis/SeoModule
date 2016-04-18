@@ -35,29 +35,35 @@ use \yii\helpers\Html;
     'id' => 'seo-text-update'
 ])?>
 <div class="row">
-    <?php if($model->hasAttribute('origin_id')): ?>
-        <div class="col-md-3">
-            <?=$form->field($model, 'origin_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\projects\models\Origin::find()->all(), 'id', 'url'), ['prompt' => '-'])?>
+    <div class="col-md-8">
+        <div class="row">
+            <?php if($model->hasAttribute('origin_id')): ?>
+                <div class="col-md-4">
+                    <?=$form->field($model, 'origin_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\projects\models\Origin::find()->all(), 'id', 'url'), ['prompt' => '-'])?>
+                </div>
+            <?php endif; ?>
+            <div class="col-md-8">
+                <div class="form-group">
+                    <?=Html::activeLabel($model, 'title')?>
+                    <?=Html::activeTextInput($model, 'title', [
+                        'class' => 'form-control'
+                    ])?>
+                    <?=Html::error($model, 'title', ['class' => 'help-block help-block-error'])?>
+                </div>
+            </div>
         </div>
-    <?php endif; ?>
-    <div class="col-md-<?=$model->hasAttribute('origin_id') ? 5 : 8?>">
-        <div class="form-group">
-            <?=Html::activeLabel($model, 'title')?>
-            <?=Html::activeTextInput($model, 'title', [
-                'class' => 'form-control'
-            ])?>
-            <?=Html::error($model, 'title', ['class' => 'help-block help-block-error'])?>
-        </div>
-        <div class="form-group">
-            <?=Html::activeLabel($model, 'text')?>
-            <?=\dosamigos\ckeditor\CKEditor::widget([
-                'model' => $model,
-                'attribute' => 'text',
-                'clientOptions' => [
-                    'filebrowserUploadUrl' => 'image-upload?source=article&id='.$model->id
-                ]
-            ]);?>
-            <?=Html::error($model, 'text', ['class' => 'help-block help-block-error'])?>
+        <div class="row">
+            <div class="form-group">
+                <?=Html::activeLabel($model, 'text')?>
+                <?=\dosamigos\ckeditor\CKEditor::widget([
+                    'model' => $model,
+                    'attribute' => 'text',
+                    'clientOptions' => [
+                        'filebrowserUploadUrl' => 'image-upload?source=article&id='.$model->id
+                    ]
+                ]);?>
+                <?=Html::error($model, 'text', ['class' => 'help-block help-block-error'])?>
+            </div>
         </div>
     </div>
     <div class="col-md-4">
@@ -70,7 +76,7 @@ use \yii\helpers\Html;
                 <img <?=file_exists(\Yii::getAlias('@webroot').\digitalmonk\modules\seo\modules\text\models\SeoText::IMAGE_FOLDER.'/'.$model->id.'/preview/preview.jpg') ? 'src="'.\digitalmonk\modules\seo\modules\text\models\SeoText::IMAGE_FOLDER.'/'.$model->id.'/preview/preview.jpg"' : ''?>>
                 <?=Html::fileInput('article-preview-img')?>
             </div>
-            <div class="article-preview-title-box"><?=$model->title?></div>
+            <div class="article-preview-title-box"><?=\yii\helpers\StringHelper::truncate($model->title, 47)?></div>
             <div class="article-info-box">
                 <div class="article-info-visits-counter">
                     <span class="glyphicon glyphicon-eye-open"></span>999
