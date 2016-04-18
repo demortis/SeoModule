@@ -5,7 +5,7 @@
  * @time: 15:30
  */
 
-namespace digitalmonk\modules\seo\models;
+namespace digitalmonk\modules\seo\modules\text\models;
 
 
 use yii\db\ActiveRecord;

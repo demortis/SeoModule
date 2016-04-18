@@ -4,7 +4,7 @@
  * @date: 05.04.16
  * @time: 11:53
  */
-\digitalmonk\modules\seo\assets\SeoAssets::register($this);
+digitalmonk\modules\seo\modules\text\assets\TextModuleAssets::register($this);
 ?>
 <div class="container">
     <div class="col-md-12">
@@ -12,28 +12,29 @@
             'links' => [
                 [
                     'label' => 'SEO',
-                    'url' => ['/seo'],
+                    'url' => ['/seo']
                 ],
-                'Добавить текст',
-            ],
+                'Редактировать текст'
+            ]
         ]);?>
     </div>
     <?php
-        \yii\bootstrap\Modal::begin([
-            'id' => 'template-modal',
-            'header' => 'Новый шаблон',
-            'size' => \yii\bootstrap\Modal::SIZE_LARGE
-        ]);
+    \yii\bootstrap\Modal::begin([
+        'id' => 'template-modal',
+        'header' => 'Новый шаблон',
+        'size' => \yii\bootstrap\Modal::SIZE_LARGE
+    ]);
 
-        \yii\bootstrap\Modal::end();
+    \yii\bootstrap\Modal::end();
     ?>
+
     <div class="col-md-12 sm-text-update-header">
         <div class="col-md-3">
             <h3>Настройки текста</h3>
         </div>
         <div class="col-md-2 col-md-push-7">
             <?php $form = \yii\widgets\ActiveForm::begin(['id' => 'seo-text-update-status'])?>
-
+            <?=\yii\helpers\Html::hiddenInput('m')?>
             <?=$form->field($model, 'status')->widget(\digitalmonk\widgets\ToggleWidget\ToggleWidget::className())->label(false)?>
 
             <?php \yii\widgets\ActiveForm::end()?>
@@ -48,14 +49,14 @@
                 <?=$form->field($model, 'origin_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\projects\models\Origin::find()->all(), 'id', 'url'), ['prompt' => '-'])?>
             </div>
         <?php endif; ?>
-        <div class="col-md-<?=$model->hasAttribute('origin_id') ? 2 : 6?>">
+        <div class="col-md-<?=$model->hasAttribute('origin_id') ? 3 : 6?>">
             <?=$form->field($model, 'url')->textInput()?>
         </div>
         <div class="col-md-2">
             <?=$form->field($model, 'position')->textInput()?>
         </div>
         <div class="col-md-2">
-            <?=$form->field($model, 'type')->dropDownList(['Статья'], ['disabled' => true])->label('Тип текста')?>
+            <?=$form->field($model, 'text_type_id')->dropDownList([$model->text_type_id => $model->textType->name], ['disabled' => true])?>
         </div>
         <div class="col-md-2">
             <?=$form->field($model, 'inheritable')->dropDownList(['Нет', 'Да'])?>
@@ -65,7 +66,7 @@
         <div class="col-md-12">
             <?=$form->field($model, 'text')->widget(\dosamigos\ckeditor\CKEditor::className(), [
                 'clientOptions' => [
-                    'filebrowserUploadUrl' => '/seo/text/image-upload',
+                    'filebrowserUploadUrl' => '/seo/texts/text/image-upload?source=text&tempHash&id='.$model->id,
                     'height' => 200
                 ]
             ])?>
@@ -76,7 +77,7 @@
             <?=\yii\helpers\Html::activeLabel($model, 'template_id')?>
             <div class="row template-control">
                 <div class="col-md-8">
-                    <?=$form->field($model, 'template_id')->dropDownList(\yii\helpers\ArrayHelper::map(\digitalmonk\modules\seo\models\SeoTextTemplate::find()->all(), 'id', 'shortText'), ['prompt' => '-'])->label(false)?>
+                    <?=$form->field($model, 'template_id')->dropDownList(\yii\helpers\ArrayHelper::map(\digitalmonk\modules\seo\modules\text\models\SeoTextTemplate::find()->all(), 'id', 'shortText'), ['prompt' => '-'])->label(false)?>
                 </div>
                 <div class="col-md-2">
                     <div class="row">
@@ -159,7 +160,7 @@
     <div class="row sm-text-update-bottom">
         <div class="form-group">
             <div class="col-md-12">
-                <?=\yii\helpers\Html::submitButton('Создать', ['class' => 'btn btn-success'])?>
+                <?=\yii\helpers\Html::submitButton('Сохранить изменения', ['class' => 'btn btn-success'])?>
             </div>
         </div>
     </div>

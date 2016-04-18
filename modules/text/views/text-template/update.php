@@ -17,7 +17,7 @@ echo \yii\helpers\Html::button('Сохранить изменения', ['class'
 $this->registerJs('
         $("#update-template-form").on("click", "button", function(event){
             $.ajax({
-                url : "/seo/text-template/update?id="+'.$model->id.',
+                url : "/seo/texts/text-template/update?id="+'.$model->id.',
                 type : "POST",
                 data : $(event.delegateTarget).serialize(),
                 dataType : "JSON",

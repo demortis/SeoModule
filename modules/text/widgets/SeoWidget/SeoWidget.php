@@ -5,9 +5,9 @@
  * @time: 15:40
  */
 
-namespace digitalmonk\modules\seo\widgets\SeoWidget;
+namespace digitalmonk\modules\seo\modules\text\widgets\SeoWidget;
 
-use digitalmonk\modules\seo\models\SeoText;
+use digitalmonk\modules\seo\modules\text\models\SeoText;
 use yii\base\Widget;
 use yii\db\Exception;
 use yii\helpers\Json;
@@ -34,7 +34,8 @@ class SeoWidget extends Widget
 
         $this->position = $this->position ?: self::$positionId++;
 
-        if ($this->model !== null) {
+        if ($this->model !== null)
+        {
             $model = $this->model;
             $this->paramsFromUrl = $model->params_from_url ?: $this->paramsFromUrl;
             $this->article = $model->text ?: $this->template;
@@ -48,7 +49,8 @@ class SeoWidget extends Widget
 
     public function run()
     {
-        if (!empty($this->article)) {
+        if (!empty($this->article))
+        {
             $render = $this->render('index', $this->params);
             return $this->textOnly ? strip_tags($render) : $render;
         }
@@ -61,8 +63,10 @@ class SeoWidget extends Widget
 
         $article = $model->template->text;
 
-        if ($this->templateParamNames !== null) {
-            foreach ($this->templateParamNames as $key => $paramName) {
+        if ($this->templateParamNames !== null)
+        {
+            foreach ($this->templateParamNames as $key => $paramName)
+            {
                 $article = @preg_replace($paramName, $this->templateParamValues[$key], $article);
             }
         }
@@ -84,8 +88,6 @@ class SeoWidget extends Widget
         if (($model = $this->model) !== null)
             return Json::decode($model->template_param_names);
     }
-
-
 
     protected function getTemplateParamValues()
     {

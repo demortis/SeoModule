@@ -6,5 +6,12 @@
  */
 
 return [
-    'params' => 123
+    'modules' => [
+        'texts' => [
+            'class' => '\digitalmonk\modules\seo\modules\text\TextModule',
+            'params' => [
+                'label' => 'Тексты',
+            ]
+        ],
+    ]
 ];

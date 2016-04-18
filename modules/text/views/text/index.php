@@ -5,6 +5,8 @@
  * @time: 14:23
  */
 
+digitalmonk\modules\seo\modules\text\assets\TextModuleAssets::register($this);
+
 ?>
 <div class="sm-header">
         <h3 class="col-md-3">Тексты</h3>

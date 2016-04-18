@@ -15,12 +15,7 @@
     <div class="col-md-12">
         <h1>SEO</h1>
         <?=\yii\bootstrap\Tabs::widget([
-            'items' => [
-                [
-                    'label' => 'Тексты',
-                    'content' => $texts
-                ]
-            ]
+            'items' => $items
         ])?>
     </div>
 </div>

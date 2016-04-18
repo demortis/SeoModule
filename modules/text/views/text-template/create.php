@@ -17,7 +17,7 @@
     $this->registerJs('
         $("#new-template-form").on("click", "button", function(event){
             $.ajax({
-                url : "/seo/text-template/create",
+                url : "/seo/texts/text-template/create",
                 type : "POST",
                 data : $(event.delegateTarget).serialize(),
                 dataType : "JSON",

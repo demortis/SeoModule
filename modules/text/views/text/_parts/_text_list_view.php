@@ -12,8 +12,8 @@
                             <?php
                                 $origin = $model->hasAttribute('origin_id') ? ['origin' => $model->origin_id] : [];
                             ?>
-                            <?=\yii\helpers\Html::a('Редактировать', \yii\helpers\Url::toRoute(array_merge(['text/update', 'url' => $model->url, 'position' => $model->position], $origin)));?>
-                            <?=\yii\helpers\Html::a('Удалить', \yii\helpers\Url::toRoute(array_merge(['text/delete', 'url' => $model->url, 'position' => $model->position], $origin)), [
+                            <?=\yii\helpers\Html::a('Редактировать', \yii\helpers\Url::toRoute(array_merge(['text/update', 'id' => $model->id])))?>
+                            <?=\yii\helpers\Html::a('Удалить', \yii\helpers\Url::toRoute(array_merge(['text/delete', 'id' => $model->id])), [
                                 'data' => [
                                     'action' => 'delete'
                                 ]

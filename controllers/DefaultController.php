@@ -14,21 +14,22 @@ class DefaultController extends Controller
 {
     public function actionIndex()
     {
-        $params = [
-           'texts' => $this->texts
-        ];
+//        try {
+            $params = [];
+            foreach ($this->module->modules as $key => $module) {
+                $params['items'][] = [
+                    'label' => isset($module['params']['label']) ? $module['params']['label'] : $key,
+                    'content' => $this->module->runAction(isset($module['params']['defaultAction']) ? $key.'/'.$module['params']['defaultAction'] : $key)
+                ];
+            }
+//        } catch (\Exception $e){
+//            return $this->render('error');
+//        }
+
         return $this->render('index', $params);
     }
 
-    protected function getTexts()
-    {
-        try{
-            return $this->module->runAction('text');
-        } catch (Exception $e){
-            if($e->getName() === 'Database Exception')
-                return $this->renderPartial('error', ['error' => $e]);
-        }
-    }
+
     
     
 }
