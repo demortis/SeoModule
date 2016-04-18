@@ -120,7 +120,7 @@ class SeoText extends Widget
     {
         try {
             $criteria = [
-                'position' => $this->position, 'url' => $this->url, 'status' => SeoText::PUBLISHED
+                'position' => $this->position, 'url' => $this->url, 'status' => SeoTextModel::PUBLISHED
             ];
 
             if ((new SeoTextModel())->hasAttribute('origin_id'))
