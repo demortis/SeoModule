@@ -35,7 +35,12 @@ use \yii\helpers\Html;
     'id' => 'seo-text-update'
 ])?>
 <div class="row">
-    <div class="col-md-8">
+    <?php if($model->hasAttribute('origin_id')): ?>
+        <div class="col-md-3">
+            <?=$form->field($model, 'origin_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\projects\models\Origin::find()->all(), 'id', 'url'), ['prompt' => '-'])?>
+        </div>
+    <?php endif; ?>
+    <div class="col-md-<?=$model->hasAttribute('origin_id') ? 5 : 8?>">
         <div class="form-group">
             <?=Html::activeLabel($model, 'title')?>
             <?=Html::activeTextInput($model, 'title', [
