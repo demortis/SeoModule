@@ -42,7 +42,7 @@ use \yii\helpers\Html;
                     <?=$form->field($model, 'origin_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\projects\models\Origin::find()->all(), 'id', 'url'), ['prompt' => '-'])?>
                 </div>
             <?php endif; ?>
-            <div class="col-md-8">
+            <div class="col-md-<?=$model->hasAttribute('origin_id') ? 8 : 12?>">
                 <div class="form-group">
                     <?=Html::activeLabel($model, 'title')?>
                     <?=Html::activeTextInput($model, 'title', [
