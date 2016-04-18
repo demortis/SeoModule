@@ -24,6 +24,16 @@ class m160407_125659_seo_module extends Migration
             'description' => Schema::TYPE_STRING.'(255)',
         ]);
 
+        $this->insert('seo_text_type', [
+            'name' => 'text',
+            'description' => 'Текст'
+        ]);
+
+        $this->insert('seo_text_type', [
+            'name' => 'article',
+            'description' => 'Статья'
+        ]);
+
         $this->createTable('seo_text', [
             'id' => Schema::TYPE_PK,
             'url' => Schema::TYPE_STRING.'(255) NOT NULL',
