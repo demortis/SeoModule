@@ -14,21 +14,21 @@ class m160407_125659_seo_module extends Migration
 
         $this->createTable('seo_article_section', [
             'id' => Schema::TYPE_PK,
-            'name' => Schema::TYPE_STRING.' (255) NOT NULL',
-            'parent_id' => Schema::TYPE_INTEGER.' (11)'
+            'name' => Schema::TYPE_STRING.'(255) NOT NULL',
+            'parent_id' => Schema::TYPE_INTEGER.'(11)'
         ]);
 
         $this->createTable('seo_text_type', [
             'id' => Schema::TYPE_PK,
-            'name' => Schema::TYPE_STRING.' (255) NOT NULL',
-            'description' => Schema::TYPE_STRING.' (255)',
+            'name' => Schema::TYPE_STRING.'(255) NOT NULL',
+            'description' => Schema::TYPE_STRING.'(255)',
         ]);
 
         $this->createTable('seo_text', [
             'id' => Schema::TYPE_PK,
             'url' => Schema::TYPE_STRING.'(255) NOT NULL',
             'position' => Schema::TYPE_SMALLINT.'(2) NOT NULL',
-            'title' => Schema::TYPE_STRING.' (510)',
+            'title' => Schema::TYPE_STRING.'(510)',
             'text' => Schema::TYPE_TEXT,
             'template_id' => Schema::TYPE_INTEGER.'(11)',
             'template_param_names' => Schema::TYPE_STRING.'(510)',
@@ -38,8 +38,8 @@ class m160407_125659_seo_module extends Migration
             'status' => Schema::TYPE_BOOLEAN.' NOT NULL DEFAULT 0',
             'created_at' => Schema::TYPE_INTEGER.'(11)',
             'updated_at' => Schema::TYPE_INTEGER.'(11)',
-            'text_type_id' => Schema::TYPE_INTEGER.' (11) NOT NULL',
-            'section_id' => Schema::TYPE_INTEGER.' (11)',
+            'text_type_id' => Schema::TYPE_INTEGER.'(11) NOT NULL',
+            'section_id' => Schema::TYPE_INTEGER.'(11)',
         ]);
 
         $this->addForeignKey('fk_seo_article_section_parent_id', 'seo_article_section', 'parent_id', 'seo_article_section', 'id', 'CASCADE', 'CASCADE');

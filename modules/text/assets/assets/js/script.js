@@ -131,7 +131,7 @@ $(document).on('change', 'input[name=article-preview-img]', function(){
         files = this.files,
         hashBlock = $('#seotext-temphash'),
         hashString = hashBlock.length > 0 ? '&tempHash='+hashBlock.val() : '',
-        idString = getUrlVars()['id'] != '' ? '&id='+getUrlVars()['id'] : '';
+        idString = getUrlVars()['id'] !== undefined ? '&id='+getUrlVars()['id'] : '';
     if(val == '') return;
 
     var data = new FormData();
@@ -139,7 +139,6 @@ $(document).on('change', 'input[name=article-preview-img]', function(){
     $.each(files, function(key, value){
         data.append('upload', value);
     });
-
     $.ajax({
         url: 'image-upload?source=preview'+ hashString + idString,
         data: data,
