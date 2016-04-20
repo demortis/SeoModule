@@ -22,7 +22,7 @@ class TextController extends Controller
 {
     public function actionIndex()
     {
-        $model = SeoText::find();
+        $model = SeoText::find()->orderBy('created_at DESC');
 
         $dataProvider = new ActiveDataProvider([
             'query' => $model
@@ -137,7 +137,8 @@ class TextController extends Controller
                 }
 
                 $this->refresh();
-            }
+            } return Json::encode($model->errors);
+
         }
 
         if($id !== null)

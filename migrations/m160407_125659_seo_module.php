@@ -25,13 +25,13 @@ class m160407_125659_seo_module extends Migration
         ]);
 
         $this->insert('seo_text_type', [
-            'name' => 'text',
-            'description' => 'Текст'
+            'name' => 'article',
+            'description' => 'Статья'
         ]);
 
         $this->insert('seo_text_type', [
-            'name' => 'article',
-            'description' => 'Статья'
+            'name' => 'text',
+            'description' => 'Текст'
         ]);
 
         $this->createTable('seo_text', [
@@ -39,6 +39,7 @@ class m160407_125659_seo_module extends Migration
             'url' => Schema::TYPE_STRING.'(255) NOT NULL',
             'position' => Schema::TYPE_SMALLINT.'(2) NOT NULL',
             'title' => Schema::TYPE_STRING.'(510)',
+            'alias' => Schema::TYPE_STRING.'(510)',
             'text' => Schema::TYPE_TEXT,
             'template_id' => Schema::TYPE_INTEGER.'(11)',
             'template_param_names' => Schema::TYPE_STRING.'(510)',

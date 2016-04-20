@@ -42,13 +42,25 @@ use \yii\helpers\Html;
                     <?=$form->field($model, 'origin_id')->dropDownList(\yii\helpers\ArrayHelper::map(\app\modules\projects\models\Origin::find()->all(), 'id', 'url'), ['prompt' => '-'])?>
                 </div>
             <?php endif; ?>
-            <div class="col-md-<?=$model->hasAttribute('origin_id') ? 8 : 12?>">
+            <div class="col-md-<?=$model->hasAttribute('origin_id') ? 4 : 6?>">
                 <div class="form-group">
                     <?=Html::activeLabel($model, 'title')?>
-                    <?=Html::activeTextInput($model, 'title', [
-                        'class' => 'form-control'
-                    ])?>
+                    <?php echo \digitalmonk\widgets\TranslitWidget\TranslitWidget::widget([
+                        'model' => $model,
+                        'attribute' => 'title',
+                        'class' => 'form-control',
+                        'translitTargetClass' => 'alias',
+                    ]);?>
                     <?=Html::error($model, 'title', ['class' => 'help-block help-block-error'])?>
+                </div>
+            </div>
+            <div class="col-md-<?=$model->hasAttribute('origin_id') ? 4 : 6?>">
+                <div class="form-group">
+                    <?=Html::activeLabel($model, 'alias')?>
+                    <?=Html::activeTextInput($model, 'alias', [
+                        'class' => 'form-control alias'
+                    ])?>
+                    <?=Html::error($model, 'alias', ['class' => 'help-block help-block-error'])?>
                 </div>
             </div>
         </div>

@@ -1,0 +1,24 @@
+.article-box{
+    overflow: hidden;
+}
+
+.article-preview-img{
+
+}
+.article-preview-img img{
+    width: 100%;
+}
+.article-preview-header{
+    margin: 10px 0 25px 0;
+    font-size: 25px;
+    height: 70px;
+    overflow: hidden;
+}
+
+.article-preview-header > a{
+    color:#333;
+}
+
+.article-preview-header > a:hover{
+    color:#333;
+}

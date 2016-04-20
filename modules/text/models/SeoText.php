@@ -64,13 +64,14 @@ class SeoText extends \yii\db\ActiveRecord
     {
         $rules = [
             [['position'], 'required', 'message' => 'Поле «{attribute}» обязательно к заполнению', 'on' => self::SCENARIO_TEXT],
-            [['text', 'title'], 'required', 'message' => 'Поле «{attribute}» обязательно к заполнению', 'on' => self::SCENARIO_ARTICLE],
+            [['text', 'title', 'alias'], 'required', 'message' => 'Поле «{attribute}» обязательно к заполнению', 'on' => self::SCENARIO_ARTICLE],
+            [['alias'], 'unique', 'message' => 'Такой алиас уже используется'],
             [['text_type_id'], 'required', 'message' => 'Поле «{attribute}» обязательно к заполнению'],
             [['position', 'template_id', 'params_from_url', 'status', 'inheritable', 'text_type_id', 'section_id', 'created_at', 'updated_at'], 'integer', 'message' => 'Поле «{attribute}» может содержать только число'],
             [['text', 'tempHash'], 'string'],
             [['text'], 'trim'],
             [['url'], 'string', 'max' => 255],
-            [['template_param_names', 'template_param_values', 'title'], 'string', 'max' => 510],
+            [['template_param_names', 'template_param_values', 'title', 'alias'], 'string', 'max' => 510],
             [['template_id'], 'exist', 'skipOnError' => true, 'targetClass' => SeoTextTemplate::className(), 'targetAttribute' => ['template_id' => 'id']],
         ];
 
@@ -95,6 +96,7 @@ class SeoText extends \yii\db\ActiveRecord
             'url' => 'Url страницы',
             'position' => '№ позиции',
             'title' => 'Заголовок',
+            'alias' => 'Алиас',
             'text' => 'Tекст',
             'template_id' => 'Привязанный шаблон',
             'template_param_names' => 'Привязанные переменные',

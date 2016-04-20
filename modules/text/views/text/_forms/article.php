@@ -14,12 +14,24 @@ $hash = uniqid('temp_');
 <?=Html::activeHiddenInput($model, 'tempHash', ['value' => $hash]);?>
 <div class="row">
     <div class="col-md-8">
-        <div class="form-group">
-            <?=Html::activeLabel($model, 'title')?>
-            <?=Html::activeTextInput($model, 'title', [
-                'class' => 'form-control'
-            ])?>
-            <?=Html::error($model, 'title', ['class' => 'help-block help-block-error'])?>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <?=Html::activeLabel($model, 'title')?>
+                <?php echo \digitalmonk\widgets\TranslitWidget\TranslitWidget::widget([
+                    'model' => $model,
+                    'attribute' => 'title',
+                    'class' => 'form-control',
+                    'translitTargetClass' => 'alias',
+                ]);?>
+                <?=Html::error($model, 'title', ['class' => 'help-block help-block-error'])?>
+            </div>
+            <div class="form-group col-md-6">
+                <?=Html::activeLabel($model, 'alias')?>
+                <?=Html::activeTextInput($model, 'alias', [
+                    'class' => 'form-control alias'
+                ])?>
+                <?=Html::error($model, 'alias', ['class' => 'help-block help-block-error'])?>
+            </div>
         </div>
         <div class="form-group">
             <?=Html::activeLabel($model, 'text')?>

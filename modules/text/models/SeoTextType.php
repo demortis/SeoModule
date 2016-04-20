@@ -19,6 +19,9 @@ use Yii;
  */
 class SeoTextType extends \yii\db\ActiveRecord
 {
+
+    const ARTICLE = 1;
+    const TEXT = 2;
     /**
      * @inheritdoc
      */
