@@ -15,7 +15,7 @@
     "yiisoft/yii2" : "*",
     "2amigos/yii2-ckeditor-widget" : "~1.0",
     "digitalmonk/yii2-widget-toggle" : "~0.0.1",
-    "digitalmonk/yii2-translit-toggle" : "~0.0.1",
+    "digitalmonk/yii2-widget-translit" : "~0.0.1",
     "yiisoft/yii2-imagine" : "~2.0.0"
   },
   "autoload" : {
