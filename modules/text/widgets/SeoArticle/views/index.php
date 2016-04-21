@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\helpers\StringHelper;
 use \digitalmonk\modules\seo\modules\text\models\SeoText;
+use yii\widgets\LinkPager;
 
 /**
  * @author: Eugene
@@ -18,15 +19,16 @@ use \digitalmonk\modules\seo\modules\text\models\SeoText;
         <?php for ($c = 0; $c < $columns; $c++, $idx++): ?>
             <div class="col-md-<?=12/$columns?>">
                 <?php if(!isset($articles[$idx])) break 2; ?>
-                <div class="<?=$boxClass?>">
-                    <div class="<?=$previewImgClass?>">
+                <article class="<?=$boxClass?>">
+                    <figure class="<?=$previewImgClass?>">
                         <?=Html::a(Html::img(SeoText::IMAGE_FOLDER.'/'.$articles[$idx]->id.'/preview/preview.jpg'), \yii\helpers\Url::to($urlPrefix.$articles[$idx]->alias))?>
-                    </div>
-                    <div class="<?=$previewHeaderClass?>">
+                    </figure>
+                    <h4 class="<?=$previewHeaderClass?>">
                         <?=Html::a(StringHelper::truncate($articles[$idx]->title, 47), \yii\helpers\Url::to($urlPrefix.$articles[$idx]->alias))?>
-                    </div>
-                </div>
+                    </h4>
+                </article>
             </div>
         <?php endfor; ?>
     <?php endfor; ?>
 </div>
+<?=LinkPager::widget(['pagination' => $pages]);?>

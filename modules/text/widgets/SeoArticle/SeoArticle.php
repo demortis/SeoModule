@@ -9,6 +9,7 @@ namespace digitalmonk\modules\seo\modules\text\widgets\SeoArticle;
 
 use digitalmonk\modules\seo\modules\text\models\SeoText;
 use digitalmonk\modules\seo\modules\text\models\SeoTextType;
+use yii\data\Pagination;
 
 class SeoArticle extends \yii\base\Widget
 {
@@ -27,17 +28,26 @@ class SeoArticle extends \yii\base\Widget
     public function init()
     {
         $articles = SeoText::find()->where(['text_type_id' => SeoTextType::ARTICLE, 'status' => SeoText::PUBLISHED])
-            ->orderBy('created_at DESC')
-            ->all();
+            ->orderBy('created_at DESC');
+//            ->all();
+
+        $countArticles = clone $articles;
+
+        $pages = new Pagination(['totalCount' => $countArticles->count(), 'pageSize' => 10]);
+
+        $pages->pageSizeParam = false;
+
+        $models = $articles->offset($pages->offset)->limit($pages->limit)->all();
 
         $this->params = [
             'rows' => $this->rows,
             'columns' => $this->columns,
-            'articles' => $articles,
+            'articles' => $models,
             'boxClass' => $this->boxClass,
             'previewImgClass' => $this->previewImgClass,
             'previewHeaderClass' => $this->previewHeaderClass,
-            'urlPrefix' => $this->urlPrefix
+            'urlPrefix' => $this->urlPrefix,
+            'pages' => $pages
         ];
     }
 
