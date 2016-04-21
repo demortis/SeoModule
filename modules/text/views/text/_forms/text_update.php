@@ -67,7 +67,8 @@ digitalmonk\modules\seo\modules\text\assets\TextModuleAssets::register($this);
             <?=$form->field($model, 'text')->widget(\dosamigos\ckeditor\CKEditor::className(), [
                 'clientOptions' => [
                     'filebrowserUploadUrl' => '/seo/texts/text/image-upload?source=text&tempHash&id='.$model->id,
-                    'height' => 200
+                    'height' => 200,
+                    'allowedContent' => true
                 ]
             ])?>
         </div>

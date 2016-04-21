@@ -45,7 +45,8 @@ $hash = uniqid('temp_');
             'model' => $model,
             'attribute' => 'text',
             'clientOptions' => [
-                'filebrowserUploadUrl' => 'image-upload?source=text&tempHash='.$hash
+                'filebrowserUploadUrl' => 'image-upload?source=text&tempHash='.$hash,
+                'allowedContent' => true
             ]
         ]);?>
     </div>

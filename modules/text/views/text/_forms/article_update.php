@@ -71,7 +71,8 @@ use \yii\helpers\Html;
                     'model' => $model,
                     'attribute' => 'text',
                     'clientOptions' => [
-                        'filebrowserUploadUrl' => 'image-upload?source=article&id='.$model->id
+                        'filebrowserUploadUrl' => 'image-upload?source=article&id='.$model->id,
+                        'allowedContent' => true
                     ]
                 ]);?>
                 <?=Html::error($model, 'text', ['class' => 'help-block help-block-error'])?>

@@ -39,7 +39,8 @@ $hash = uniqid('temp_');
                 'model' => $model,
                 'attribute' => 'text',
                 'clientOptions' => [
-                    'filebrowserUploadUrl' => 'image-upload?source=article&tempHash='.$hash
+                    'filebrowserUploadUrl' => 'image-upload?source=article&tempHash='.$hash,
+                    'allowedContent' => true
                 ]
             ]);?>
             <?=Html::error($model, 'text', ['class' => 'help-block help-block-error'])?>
