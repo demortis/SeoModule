@@ -16,6 +16,8 @@ class SeoFullArticle extends Widget
 {
     public $model;
 
+    public $headerClass = '';
+
     private $params = [];
 
     public function init()
@@ -27,7 +29,8 @@ class SeoFullArticle extends Widget
             $this->model = SeoText::findOne(['alias' => $query['seoAlias'], 'status' => SeoText::PUBLISHED, 'text_type_id' => SeoTextType::ARTICLE]);
             if($this->model !== null)
                 $this->params = [
-                    'article' => $this->model
+                    'article' => $this->model,
+                    'headerClass' => $this->headerClass
                 ];
         }
 
