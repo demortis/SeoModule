@@ -43,7 +43,7 @@ class SeoTextTemplate extends ActiveRecord
     public function beforeSave($insert)
     {
         if(parent::beforeSave($insert)){
-            $this->text = HtmlPurifier::process($this->text);
+            $this->text = trim(HtmlPurifier::process($this->text));
             return true;
         }
         return false;

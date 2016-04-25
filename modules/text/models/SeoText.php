@@ -214,7 +214,7 @@ class SeoText extends \yii\db\ActiveRecord
     {
         if(parent::beforeSave($insert))
         {
-            $this->text = HtmlPurifier::process($this->text);
+            $this->text = trim(HtmlPurifier::process($this->text));
             return true;
         }
         return false;

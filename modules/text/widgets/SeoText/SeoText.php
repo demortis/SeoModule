@@ -52,7 +52,7 @@ class SeoText extends Widget
         if (!empty($this->article))
         {
             $render = $this->render('index', $this->params);
-            return $this->textOnly ? strip_tags($render) : $render;
+            return $this->textOnly ? trim(strip_tags($render)) : $render;
         }
     }
 
