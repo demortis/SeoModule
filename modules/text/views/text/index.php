@@ -8,6 +8,9 @@
 digitalmonk\modules\seo\modules\text\assets\TextModuleAssets::register($this);
 
 ?>
+<?php \yii\widgets\Pjax::begin([
+    'enablePushState' => false,
+])?>
 <div class="sm-header">
         <h3 class="col-md-3">Тексты</h3>
 
@@ -18,6 +21,7 @@ digitalmonk\modules\seo\modules\text\assets\TextModuleAssets::register($this);
         </div>
 </div>
 <div class="col-md-12">
+
     <?= \yii\widgets\ListView::widget([
         'dataProvider' => $dataProvider,
         'summary' => 'Всего текстов: <strong>{totalCount}</strong>. Показано с <strong>{begin}</strong> по <strong>{end}</strong>.',
@@ -26,6 +30,8 @@ digitalmonk\modules\seo\modules\text\assets\TextModuleAssets::register($this);
             return $this->render('_parts/_text_list_view', ['model' => $model]);
         },
     ]); ?>
+
 </div>
+<?php \yii\widgets\Pjax::end()?>
 
 

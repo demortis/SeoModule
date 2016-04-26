@@ -11,6 +11,7 @@ use digitalmonk\modules\seo\modules\text\models\SeoText;
 use digitalmonk\modules\seo\modules\text\models\SeoTextTemplate;
 use digitalmonk\modules\seo\modules\text\models\SeoTextType;
 use yii\data\ActiveDataProvider;
+use yii\data\Pagination;
 use yii\helpers\FileHelper;
 use yii\helpers\Json;
 use yii\helpers\Url;
@@ -25,14 +26,17 @@ class TextController extends Controller
         $model = SeoText::find()->orderBy('created_at DESC');
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $model
+            'query' => $model,
+            'pagination' => new Pagination([
+                'pageSize' => 10
+            ])
         ]);
 
         $params = [
             'dataProvider' => $dataProvider
         ];
 
-        return $this->renderPartial('index', $params);
+        return $this->renderAjax('index', $params);
     }
 
     public function actionForm($id)
