@@ -52,7 +52,7 @@ class SeoText extends Widget
         if (!empty($this->article))
         {
             $render = $this->render('index', $this->params);
-            return $this->textOnly ? trim(strip_tags($render)) : $render;
+            return $this->textOnly ? strip_tags($render) : $render;
         }
     }
 
@@ -61,17 +61,17 @@ class SeoText extends Widget
         if (($model = $this->model) === null || $model->template === null)
             return false;
 
-        $article = $model->template->text;
+        $template = $model->template->text;
 
         if ($this->templateParamNames !== null)
         {
             foreach ($this->templateParamNames as $key => $paramName)
             {
-                $article = @preg_replace($paramName, $this->templateParamValues[$key], $article);
+                $template = @preg_replace($paramName, $this->templateParamValues[$key], $template);
             }
         }
 
-        return $article;
+        return $template;
     }
 
     protected function getTemplateParamNames()
@@ -107,7 +107,7 @@ class SeoText extends Widget
             $url = '';
             foreach ($urlParts as $urlPart)
             {
-                 $url .= $urlPart.'/';
+                $url .= $urlPart.'/';
             }
             unset($urlParts[$i]);
             $urls[] = substr($url, 0, -1);  // Убираем последний символ '/'
@@ -129,12 +129,12 @@ class SeoText extends Widget
             $models = SeoTextModel::findAll($criteria);
             if(!empty($models))
             {
-                $actualModel = $models[count($models) - 1];
+                $actualModel = \Yii::$app->request->pathInfo == $models[count($models) - 1]->url ? $models[count($models) - 1] : '';
                 foreach ($models as $key => $model)
                 {
                     if (!$model->inheritable) unset($models[$key]);
                 }
-                return empty($models) ? $actualModel : current($models);
+                return !empty($models) ? current($models) : ($actualModel ?: null);
             }
         } catch (Exception $e) {
             if ($e->getName() === 'Database Exception')
