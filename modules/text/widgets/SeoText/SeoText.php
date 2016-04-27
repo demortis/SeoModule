@@ -52,7 +52,7 @@ class SeoText extends Widget
         if (!empty($this->article))
         {
             $render = $this->render('index', $this->params);
-            return $this->textOnly ? strip_tags($render) : $render;
+            return $this->textOnly ? trim(strip_tags($render)) : $render;
         }
     }
 
@@ -129,12 +129,13 @@ class SeoText extends Widget
             $models = SeoTextModel::findAll($criteria);
             if(!empty($models))
             {
-                $actualModel = \Yii::$app->request->pathInfo == $models[count($models) - 1]->url ? $models[count($models) - 1] : '';
+                $actualModel = null;
                 foreach ($models as $key => $model)
                 {
+                    if (\Yii::$app->request->pathInfo == $model->url) $actualModel = $model;
                     if (!$model->inheritable) unset($models[$key]);
                 }
-                return !empty($models) ? current($models) : ($actualModel ?: null);
+                return !empty($models) ? current($models) : $actualModel;
             }
         } catch (Exception $e) {
             if ($e->getName() === 'Database Exception')
