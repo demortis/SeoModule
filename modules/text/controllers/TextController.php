@@ -171,10 +171,10 @@ class TextController extends Controller
         $file = time()."_".$uploadedFile->name;
 
         if($tempHash !== null)
-            $folderPath = \Yii::getAlias('@webroot').SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source;
+            $folderPath = \Yii::getAlias('@webroot').\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source;
 
         if($id !== null)
-            $folderPath = \Yii::getAlias('@webroot').SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source;
+            $folderPath = \Yii::getAlias('@webroot').\Yii::$app->getModule('seo')->imagesPath.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source;
 
         if($source == 'preview')
             FileHelper::removeDirectory($folderPath);
@@ -183,12 +183,11 @@ class TextController extends Controller
             if(!FileHelper::createDirectory($folderPath, 0777))
                 return false;
         }
-
         if($tempHash !== null)
-            $url = \Yii::$app->urlManager->createAbsoluteUrl('/'.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/'.$file);
+            $url = \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/'.$file);
 
         if($id !== null)
-            $url = \Yii::$app->urlManager->createAbsoluteUrl('/'.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/'.$file);
+            $url = \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/'.$file);
 
         $uploadPath = $folderPath.'/'.$file;
         //extensive suitability check before doing anything with the file…
@@ -228,11 +227,11 @@ class TextController extends Controller
         }
 
         if($tempHash !== null)
-            return \Yii::$app->urlManager->createAbsoluteUrl('/'.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand());
+            return \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand());
 
         if($id !== null)
-            return \Yii::$app->urlManager->createAbsoluteUrl('/'.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/preview.jpg?'.rand());
+            return \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/preview.jpg?'.rand());
 
-        return \Yii::$app->urlManager->createAbsoluteUrl('/'.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand());
+        return \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand());
     }
 }

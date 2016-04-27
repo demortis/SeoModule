@@ -31,8 +31,9 @@ use yii\helpers\Json;
  */
 class SeoText extends \yii\db\ActiveRecord
 {
-    const IMAGE_FOLDER = '/images/seo_texts_images';
-    const TEMP_IMAGE_FOLDER = '/images/seo_texts_images/temp';
+
+    const IMAGE_FOLDER = '/seo_texts_images';
+    const TEMP_IMAGE_FOLDER = '/seo_texts_images/temp';
 
     const PUBLISHED = 1;
     const NOT_PUBLISHED = 0;
@@ -160,8 +161,9 @@ class SeoText extends \yii\db\ActiveRecord
 
     public function getImages()
     {
-        $tempFolder = \Yii::getAlias('@webroot').self::TEMP_IMAGE_FOLDER.'/'.$this->tempHash;
-        $staticFolder = \Yii::getAlias('@webroot').self::IMAGE_FOLDER.'/'.$this->id;
+
+        $tempFolder = \Yii::getAlias('@webroot').\Yii::$app->getModule('seo')->imagesPath.self::TEMP_IMAGE_FOLDER.'/'.$this->tempHash;
+        $staticFolder = \Yii::getAlias('@webroot').\Yii::$app->getModule('seo')->imagesPath.self::IMAGE_FOLDER.'/'.$this->id;
         if(file_exists($tempFolder))
         {
             try {
