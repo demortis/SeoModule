@@ -40,7 +40,25 @@ $hash = uniqid('temp_');
                 'attribute' => 'text',
                 'clientOptions' => [
                     'filebrowserUploadUrl' => 'image-upload?source=article&tempHash='.$hash,
-                    'allowedContent' => true
+                    'allowedContent' => true,
+                    'on' => [
+                        'insertElement' => new \yii\web\JsExpression('function(e) {
+                            var hostField = $("#seotext-origin_id"); 
+                            if(hostField.length > 0)
+                            {
+                                var imgSrc = e.data.getAttribute("src"),
+                                    host = hostField.find("option:selected").text().replace("http://", "");
+                                    
+                                if(imgSrc !== null)
+                                {
+                                    var url = new URL(imgSrc);   
+                                    url.host = "'.\Yii::$app->getModule('seo')->subDomain.'" + host;
+                                    e.data.setAttribute("src", url);
+                                    e.data.setAttribute("data-cke-saved-src", url);
+                                }
+                            }
+                        }')
+                    ]
                 ]
             ]);?>
             <?=Html::error($model, 'text', ['class' => 'help-block help-block-error'])?>

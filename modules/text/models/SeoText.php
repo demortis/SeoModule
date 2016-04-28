@@ -32,8 +32,8 @@ use yii\helpers\Json;
 class SeoText extends \yii\db\ActiveRecord
 {
 
-    const IMAGE_FOLDER = '/seo_texts_images';
-    const TEMP_IMAGE_FOLDER = '/seo_texts_images/temp';
+    const IMAGE_FOLDER = '/st_images';
+    const TEMP_IMAGE_FOLDER = self::IMAGE_FOLDER.'/temp';
 
     const PUBLISHED = 1;
     const NOT_PUBLISHED = 0;

@@ -72,7 +72,25 @@ use \yii\helpers\Html;
                     'attribute' => 'text',
                     'clientOptions' => [
                         'filebrowserUploadUrl' => 'image-upload?source=article&id='.$model->id,
-                        'allowedContent' => true
+                        'allowedContent' => true,
+                        'on' => [
+                            'insertElement' => new \yii\web\JsExpression('function(e) {
+                                var hostField = $("#seotext-origin_id"); 
+                                if(hostField.length > 0)
+                                {
+                                    var imgSrc = e.data.getAttribute("src"),
+                                        host = hostField.find("option:selected").text().replace("http://", "");
+                                        
+                                    if(imgSrc !== null)
+                                    {
+                                        var url = new URL(imgSrc);   
+                                        url.host = "'.\Yii::$app->getModule('seo')->subDomain.'" + host;
+                                        e.data.setAttribute("src", url);
+                                        e.data.setAttribute("data-cke-saved-src", url);
+                                    }
+                                }
+                            }')
+                        ]
                     ]
                 ]);?>
                 <?=Html::error($model, 'text', ['class' => 'help-block help-block-error'])?>
@@ -86,7 +104,8 @@ use \yii\helpers\Html;
         <?=Html::label('Предпросмотр')?>
         <div class="article-preview-box">
             <div class="article-preview-image-box">
-                <img <?=file_exists(\Yii::getAlias('@webroot').\digitalmonk\modules\seo\modules\text\models\SeoText::IMAGE_FOLDER.'/'.$model->id.'/preview/preview.jpg') ? 'src="'.\digitalmonk\modules\seo\modules\text\models\SeoText::IMAGE_FOLDER.'/'.$model->id.'/preview/preview.jpg"' : ''?>>
+                <?php $path = \Yii::$app->getModule('seo')->imagesPath.\digitalmonk\modules\seo\modules\text\models\SeoText::IMAGE_FOLDER.'/'.$model->id.'/preview/preview.jpg';?>
+                <img <?=file_exists(\Yii::getAlias('@webroot').$path) ? 'src="'.$path.'"' : ''?>>
                 <?=Html::fileInput('article-preview-img')?>
             </div>
             <div class="article-preview-title-box"><?=\yii\helpers\StringHelper::truncate($model->title, 47)?></div>

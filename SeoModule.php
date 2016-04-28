@@ -13,7 +13,9 @@ class SeoModule extends Module
 {
     public $controllerNamespace = 'digitalmonk\modules\seo\controllers';
 
-    public $imagesPath = '/images';
+    public $imagesPath = '';
+
+    public $subDomain = 'img.';
 
     public function init()
     {

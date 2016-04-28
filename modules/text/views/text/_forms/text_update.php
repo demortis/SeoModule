@@ -68,7 +68,25 @@ digitalmonk\modules\seo\modules\text\assets\TextModuleAssets::register($this);
                 'clientOptions' => [
                     'filebrowserUploadUrl' => '/seo/texts/text/image-upload?source=text&tempHash&id='.$model->id,
                     'height' => 200,
-                    'allowedContent' => true
+                    'allowedContent' => true,
+                    'on' => [
+                        'insertElement' => new \yii\web\JsExpression('function(e) {
+                            var hostField = $("#seotext-origin_id"); 
+                            if(hostField.length > 0)
+                            {
+                                var imgSrc = e.data.getAttribute("src"),
+                                    host = hostField.find("option:selected").text().replace("http://", "");
+                                    
+                                if(imgSrc !== null)
+                                {
+                                    var url = new URL(imgSrc);   
+                                    url.host = "'.\Yii::$app->getModule('seo')->subDomain.'" + host;
+                                    e.data.setAttribute("src", url);
+                                    e.data.setAttribute("data-cke-saved-src", url);
+                                }
+                            }
+                        }')
+                    ]
                 ]
             ])?>
         </div>

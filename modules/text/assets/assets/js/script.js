@@ -25,9 +25,17 @@ $(document).on('click', 'div.sm-text-list-item-menu a', function(){
 
 $('#seotext-text_type_id').on('change', function(){
     var $this = $(this),
-        val = $this.val();
+        val = $this.val(),
+        hostField = $("#seotext-origin_id");
 
     if(val === '') return;
+
+    if(hostField.length > 0){
+        if(hostField.val() === ''){
+            $this.val('');
+            alert("Выберите проект."); return;
+        }
+    }
 
     $.ajax({
         url : 'form?id=' + val,
@@ -130,8 +138,11 @@ $(document).on('change', 'input[name=article-preview-img]', function(){
         val = $this.val(),
         files = this.files,
         hashBlock = $('#seotext-temphash'),
-        hashString = hashBlock.length > 0 ? '&tempHash='+hashBlock.val() : '',
-        idString = getUrlVars()['id'] !== undefined ? '&id='+getUrlVars()['id'] : '';
+        hashString = hashBlock.length > 0 ? '&tempHash=' + hashBlock.val() : '',
+        idString = getUrlVars()['id'] !== undefined ? '&id=' + getUrlVars()['id'] : '',
+        hostField = $("#seotext-origin_id"),
+        origin = hostField.length !== 0 && hostField.val() !== '' ? '&origin=' + hostField.find("option:selected").text().replace("http://", "") : '';
+
     if(val == '') return;
 
     var data = new FormData();
@@ -140,7 +151,7 @@ $(document).on('change', 'input[name=article-preview-img]', function(){
         data.append('upload', value);
     });
     $.ajax({
-        url: 'image-upload?source=preview'+ hashString + idString,
+        url: 'image-upload?source=preview'+ hashString + idString + origin,
         data: data,
         processData: false,
         contentType: false,

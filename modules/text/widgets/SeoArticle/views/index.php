@@ -21,7 +21,11 @@ use yii\widgets\LinkPager;
                 <?php if(!isset($articles[$idx])) break 2; ?>
                 <article class="<?=$boxClass?>">
                     <figure class="<?=$previewImgClass?>">
-                        <?=Html::a(Html::img(SeoText::IMAGE_FOLDER.'/'.$articles[$idx]->id.'/preview/preview.jpg'), \yii\helpers\Url::to($urlPrefix.$articles[$idx]->alias))?>
+                        <?php
+                            $imagePath = SeoText::IMAGE_FOLDER.'/'.$articles[$idx]->id.'/preview/preview.jpg';
+                            
+                        ?>
+                        <?=Html::a(Html::img($imagePath), \yii\helpers\Url::to($urlPrefix.$articles[$idx]->alias))?>
                     </figure>
                     <h4 class="<?=$previewHeaderClass?>">
                         <?=Html::a(StringHelper::truncate($articles[$idx]->title, 47), \yii\helpers\Url::to($urlPrefix.$articles[$idx]->alias))?>
