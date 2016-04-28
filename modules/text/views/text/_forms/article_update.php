@@ -85,7 +85,7 @@ use \yii\helpers\Html;
                                     {
                                         var url = new URL(imgSrc);   
                                         url.host = "'.\Yii::$app->getModule('seo')->subDomain.'" + host;
-                                        e.data.setAttribute("src", url);
+//                                        e.data.setAttribute("src", url);
                                         e.data.setAttribute("data-cke-saved-src", url);
                                     }
                                 }

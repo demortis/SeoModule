@@ -13,7 +13,7 @@ class SeoModule extends Module
 {
     public $controllerNamespace = 'digitalmonk\modules\seo\controllers';
 
-    public $imagesPath = '';
+    public $imagesPath = '/images/img.motorezina.net';
 
     public $subDomain = 'img.';
 

@@ -184,10 +184,10 @@ class TextController extends Controller
                 return false;
         }
         if($tempHash !== null)
-            $url = $origin === null ? \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand()) : 'http://'.\Yii::$app->getModule('seo')->subDomain.$origin.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand();
+            $url = $origin === null ? \Yii::$app->urlManager->createAbsoluteUrl('/'.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/'.$file.'?'.rand()) : 'http://'.\Yii::$app->getModule('seo')->subDomain.$origin.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/'.$file.'?'.rand();
 
         if($id !== null)
-            $url = $origin === null ? \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/preview.jpg?'.rand()) : 'http://'.\Yii::$app->getModule('seo')->subDomain.$origin.\Yii::$app->getModule('seo')->imagesPath.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/preview.jpg?'.rand();
+            $url = $origin === null ? \Yii::$app->urlManager->createAbsoluteUrl('/'.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/'.$file.'?'.rand()) : 'http://'.\Yii::$app->getModule('seo')->subDomain.$origin.\Yii::$app->getModule('seo')->imagesPath.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/'.$file.'?'.rand();
 
         $uploadPath = $folderPath.'/'.$file;
         //extensive suitability check before doing anything with the file…
@@ -227,11 +227,11 @@ class TextController extends Controller
         }
 
         if($tempHash !== null)
-            return $origin === null ? \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand()) : 'http://'.\Yii::$app->getModule('seo')->subDomain.$origin.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand();
+            return SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand();
 
         if($id !== null)
-            return $origin === null ? \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/preview.jpg?'.rand()) : 'http://'.\Yii::$app->getModule('seo')->subDomain.$origin.\Yii::$app->getModule('seo')->imagesPath.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/preview.jpg?'.rand();
+            return SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/preview.jpg?'.rand();
 
-        return $origin === null ? \Yii::$app->urlManager->createAbsoluteUrl('/'.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand()) : 'http://'.\Yii::$app->getModule('seo')->subDomain.$origin.\Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand();
+        return SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand();
     }
 }

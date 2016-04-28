@@ -22,7 +22,7 @@ use yii\widgets\LinkPager;
                 <article class="<?=$boxClass?>">
                     <figure class="<?=$previewImgClass?>">
                         <?php
-                            $imagePath = SeoText::IMAGE_FOLDER.'/'.$articles[$idx]->id.'/preview/preview.jpg';
+                            $imagePath = 'http://'.\Yii::$app->getModule('seo')->subDomain.preg_replace('/http:\/\//', '', \yii\helpers\Url::base(true)).SeoText::IMAGE_FOLDER.'/'.$articles[$idx]->id.'/preview/preview.jpg';
                             
                         ?>
                         <?=Html::a(Html::img($imagePath), \yii\helpers\Url::to($urlPrefix.$articles[$idx]->alias))?>
