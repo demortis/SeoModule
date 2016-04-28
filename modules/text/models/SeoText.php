@@ -200,7 +200,7 @@ class SeoText extends \yii\db\ActiveRecord
     private function convertTextUrls($text)
     {
         $dom = new \DOMDocument();
-        if($dom->loadHTML($text, LIBXML_HTML_NOIMPLIED|LIBXML_HTML_NODEFDTD)){
+        if($dom->loadHTML($text)){
             $elements = $dom->getElementsByTagName('img');
             foreach ($elements as $element){
                 $src = $element->getAttribute('src');
@@ -209,7 +209,7 @@ class SeoText extends \yii\db\ActiveRecord
                 $element->setAttribute('src', $newSrc);
             }
         }
-        return $dom->saveHTML();
+        return preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''),$dom->saveHTML()));
     }
 
     public function beforeSave($insert)
