@@ -51,10 +51,11 @@ $hash = uniqid('temp_');
                                     
                                 if(imgSrc !== null)
                                 {
-                                    var url = new URL(imgSrc);   
-                                    url.host = "'.\Yii::$app->getModule('seo')->subDomain.'" + host;
-//                                    e.data.setAttribute("src", url);
-                                    e.data.setAttribute("data-cke-saved-src", url);
+                                    var dataUrl = new URL(imgSrc);
+                                    var attrUrl = new URL(imgSrc);   
+                                    dataUrl.host = "'.\Yii::$app->getModule('seo')->subDomain.'" + host;
+                                    e.data.setAttribute("src", attrUrl.origin + "'.\Yii::$app->getModule('seo')->imagesPath.'" + attrUrl.pathname);
+                                    e.data.setAttribute("data-cke-saved-src", dataUrl);
                                 }
                             }
                         }')

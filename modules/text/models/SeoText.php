@@ -200,7 +200,7 @@ class SeoText extends \yii\db\ActiveRecord
     private function convertTextUrls($text)
     {
         $dom = new \DOMDocument();
-        if($dom->loadHTML($text, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD)){
+        if($dom->loadHTML($text, LIBXML_HTML_NOIMPLIED|LIBXML_HTML_NODEFDTD)){
             $elements = $dom->getElementsByTagName('img');
             foreach ($elements as $element){
                 $src = $element->getAttribute('src');

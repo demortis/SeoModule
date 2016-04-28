@@ -227,11 +227,11 @@ class TextController extends Controller
         }
 
         if($tempHash !== null)
-            return SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand();
+            return \Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand();
 
         if($id !== null)
-            return SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/preview.jpg?'.rand();
+            return \Yii::$app->getModule('seo')->imagesPath.SeoText::IMAGE_FOLDER.'/'.$id.'/'.$source.'/preview.jpg?'.rand();
 
-        return SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand();
+        return \Yii::$app->getModule('seo')->imagesPath.SeoText::TEMP_IMAGE_FOLDER.'/'.$tempHash.'/'.$source.'/preview.jpg?'.rand();
     }
 }
