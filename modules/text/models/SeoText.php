@@ -209,7 +209,7 @@ class SeoText extends \yii\db\ActiveRecord
                 $element->setAttribute('src', $newSrc);
             }
         }
-        return preg_replace('/^<!DOCTYPE.+?>/', '', str_replace( array('<html>', '</html>', '<body>', '</body>'), array('', '', '', ''),$dom->saveHTML()));
+        return $dom->saveHTML();
     }
 
     public function beforeSave($insert)
