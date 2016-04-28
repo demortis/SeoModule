@@ -67,7 +67,9 @@ class SeoText extends Widget
         {
             foreach ($this->templateParamNames as $key => $paramName)
             {
-                $template = @preg_replace($paramName, $this->templateParamValues[$key], $template);
+                $result = @preg_replace($paramName, $this->templateParamValues[$key], $template);
+
+                if($result !== false) $template = $result;
             }
         }
 
