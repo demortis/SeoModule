@@ -73,7 +73,7 @@ class SeoText extends Widget
             }
         }
 
-        return $template;
+        return preg_replace('~\{.*?\}~', '', $template);
     }
 
     protected function getTemplateParamNames()
