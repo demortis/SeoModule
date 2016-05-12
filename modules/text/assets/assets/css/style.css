@@ -245,3 +245,7 @@
     content: 'ОПУБЛИКОВАН' !important;
 }
 /* ПЕРЕКРЫТИЕЙ СТИЛЕЙ TOGGLE WIDGET */
+
+.filter-row{
+    margin-top: 15px;
+}

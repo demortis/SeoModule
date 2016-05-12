@@ -23,10 +23,18 @@ class TextController extends Controller
 {
     public function actionIndex()
     {
-        $model = SeoText::find()->orderBy('created_at DESC');
+        $query = SeoText::find()->orderBy('created_at DESC');
+        if(isset(\Yii::$app->request->queryParams['FilterParams']))
+        {
 
+            if (!empty(\Yii::$app->request->queryParams['FilterParams'])) {
+                foreach (\Yii::$app->request->queryParams['FilterParams'] as $name => $value) {
+                    $query->andFilterWhere(['like', $name, $value]);
+                }
+            }
+        }
         $dataProvider = new ActiveDataProvider([
-            'query' => $model,
+            'query' => $query,
             'pagination' => new Pagination([
                 'pageSize' => 10
             ])
@@ -35,6 +43,10 @@ class TextController extends Controller
         $params = [
             'dataProvider' => $dataProvider
         ];
+
+        if(\Yii::$app->request->isAjax) {
+            return $this->renderAjax('filtered-texts', $params);
+        }
 
         return $this->renderAjax('index', $params);
     }
